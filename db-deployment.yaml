@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: testing
+  name: db-deployment
+  labels:
+    app: ets-sweng-asal-db
+spec:
+  selector:
+    matchLabels:
+      app: ets-sweng-asal-db
+  template:
+    metadata:
+      labels:
+        app: ets-sweng-asal-db
+    spec:
+      volumes:
+      - name: azurefileshare
+        persistentVolumeClaim:
+          claimName: static-db-deployment-volume-claim
+      containers:
+      - name: ets-sweng-asal-db
+        image: postgres:9.6-alpine
+        imagePullPolicy: Always    
+        ports:
+        - containerPort: 5432
+        env:
+        - name: PGDATA
+          value: /var/lib/postgresql/data/pgdata
+        - name: POSTGRES_PASSWORD
+          value: postgres
+        - name: POSTGRES_USER
+          value: postgres
+        volumeMounts:
+        - name: azurefileshare
+          mountPath:  /storage

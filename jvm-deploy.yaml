@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: testing
+  name: jvm-deployment
+  labels:
+    app: ets-sweng-asal
+spec:
+  selector:
+    matchLabels:
+      app: ets-sweng-asal
+  template:
+    metadata:
+      labels:
+        app: ets-sweng-asal
+    spec:
+      containers:
+      - name: ets-sweng-asal
+        image: 10.168.28.196/test-publish/ets-sweng-asal:kube1
+        ports:
+        - containerPort: 8443
+      imagePullSecrets:
+      - name: regcred
