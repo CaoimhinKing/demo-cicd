@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: ets-sweng-asal
-        image: 10.168.28.196/test-publish/ets-sweng-asal:kube1
+        image: 10.168.28.97/ets-sweng-asal/asal
         ports:
         - containerPort: 8443
       imagePullSecrets:
